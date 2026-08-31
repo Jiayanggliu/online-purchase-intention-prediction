@@ -6,6 +6,7 @@ import plotly.express as px
 from dash import Dash, Input, Output, State, dcc, html
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
+from ucimlrepo import fetch_ucirepo
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_PATH = BASE_DIR / "data" / "online_shoppers_intention.csv"
@@ -13,7 +14,18 @@ DATA_PATH = BASE_DIR / "data" / "online_shoppers_intention.csv"
 # -------------------------
 # Data + portfolio model
 # -------------------------
-df = pd.read_csv(DATA_PATH).drop_duplicates().reset_index(drop=True)
+def load_data():
+    """Prefer a local CSV when present; otherwise fetch UCI dataset 468."""
+    if DATA_PATH.exists():
+        return pd.read_csv(DATA_PATH)
+
+    dataset = fetch_ucirepo(id=468)
+    features = dataset.data.features.copy()
+    target = dataset.data.targets.iloc[:, 0].rename("Revenue")
+    return pd.concat([features, target], axis=1)
+
+
+df = load_data().drop_duplicates().reset_index(drop=True)
 X = df.drop("Revenue", axis=1)
 y = df["Revenue"].astype(int)
 

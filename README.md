@@ -38,7 +38,7 @@ Because purchases are the minority class, the analysis emphasizes **F1, recall, 
 | Random Forest | **0.896** | **0.688** | **0.730** | 0.650 |
 | Ensemble | 0.898 | 0.675 | 0.673 | **0.676** |
 
-\*The original team notebook evaluated Logistic Regression on an unscaled test matrix in one cell even though the model was trained on scaled features. `portfolio_analysis.ipynb` corrects that line and clears stale notebook outputs so the corrected version can be rerun cleanly. The Random Forest metrics shown above are unaffected by that issue.
+\*In the original team notebook, one Logistic Regression test cell used the unscaled test matrix even though the model was trained on scaled features. The portfolio version is separated so this can be corrected and rerun cleanly. The Random Forest metrics above are unaffected.
 
 ## Business Takeaway
 
@@ -50,18 +50,17 @@ Random Forest offers the best F1 balance for the imbalanced purchase target. At 
 online-purchase-intention-prediction/
 ├── app/
 │   └── app.py
-├── assets/
 ├── data/
-│   ├── README.md
-│   └── online_shoppers_intention.csv
+│   └── README.md
 ├── notebooks/
-│   ├── original_team_notebook.ipynb
 │   └── portfolio_analysis.ipynb
 ├── .gitignore
 ├── README.md
 ├── ROADMAP.md
 └── requirements.txt
 ```
+
+The app and notebook fetch the UCI dataset automatically when a local `data/online_shoppers_intention.csv` file is not present, so the repository remains reproducible without storing a duplicate 1 MB dataset file.
 
 ## Run Locally
 
@@ -83,7 +82,7 @@ The target variable is `Revenue`: `True` means the session ended in a purchase.
 
 ## Team Attribution
 
-Original course project by **Nisha Thiagaraj, Jiayang Liu, Ruoyu Yan, and Bo Xu**. This repository is a portfolio-oriented restructuring of the team notebook and retains the original team attribution.
+Original course project by **Nisha Thiagaraj, Jiayang Liu, Ruoyu Yan, and Bo Xu**. This repository is a portfolio-oriented restructuring of the team work and retains the original team attribution.
 
 ## Next Improvements
 
